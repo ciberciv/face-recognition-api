@@ -1,26 +1,37 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
 
 const app = express();
+
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
   users: [
     {
       id: "123",
       name: "ciberciv",
-      email: "ciberciv@ciber.com",
       password: "secret",
+      email: "ciberciv@ciber.com",
       entries: 0,
       joined: new Date()
     },
     {
       id: "124",
       name: "vicrebic",
-      email: "vicrebic@ciber.com",
       password: "secrettoo",
+      email: "vicrebic@ciber.com",
       entries: 0,
       joined: new Date()
+    }
+  ],
+  login: [
+    {
+      id: "987",
+      hash: "",
+      email: "ciberciv@ciber.com"
     }
   ]
 }
@@ -35,7 +46,6 @@ app.post("/signin", (req, res) => {
   } else {
     res.status(400).json("error logging");
   }
-  res.json("signin");
 })
 
 app.post("/register", (req, res) => {
